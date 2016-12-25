@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Card from '../components/Card';
+import SearchBar from './SearchBar';
 import { Grid } from 'semantic-ui-react'
 import { fetchCharacters } from '../actions/MarvelComics';
 import '../styles/loader.css';
 
 class CharactersIndex extends Component {
-  componentWillMount() {
-    this.props.fetchCharacters();
-  }
 
+  componentWillMount() {
+      this.props.fetchCharacters();
+  }
 
   renderCards() {
     return this.props.characters.data.results.map((char) => {
@@ -37,16 +38,19 @@ class CharactersIndex extends Component {
       )
     }
     return (
-      <Grid divided>
-        <Grid.Row centered>
-          { this.renderCards() }
-        </Grid.Row>
-      </Grid>
+      <div>
+        <SearchBar />
+        <Grid divided>
+          <Grid.Row centered>
+              { this.renderCards() }
+          </Grid.Row>
+        </Grid>
+      </div>
     );
   };
 }
 
 function mapStateToProps(state) {
-  return { characters: state.characters.all };
+    return { characters: state.characters.all };
 }
 export default connect(mapStateToProps, {fetchCharacters})(CharactersIndex);

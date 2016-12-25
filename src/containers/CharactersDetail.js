@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Grid, Header } from 'semantic-ui-react'
-import { Link } from 'react-router';
+import { browserHistory, Link } from 'react-router';
 import { fetchCharacter } from '../actions/MarvelComics';
 import '../styles/loader.css';
 
@@ -9,6 +9,10 @@ class CharacterDetail extends Component {
   componentWillMount() {
     this.props.fetchCharacter(this.props.params.charId);
   }
+
+   onClickHandler() {
+      browserHistory.goBack();
+   }
 
   render() {
     if (!this.props.character) {
@@ -71,7 +75,7 @@ class CharacterDetail extends Component {
               </div>
 
               <div className="card-action">
-                <Link to={"/characters"}>
+                <Link to="#" onClick={this.onClickHandler}>
                   Back
                 </Link>
               </div>
